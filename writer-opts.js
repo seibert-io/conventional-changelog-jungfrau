@@ -66,9 +66,9 @@ function getWriterOpts () {
       }
 
       if (typeof commit.subject === `string`) {
-        commit.subject = commit.subject.replace(/SALESMANUAL-([0-9]+)/g, (_, issue) => {
+        commit.subject = commit.subject.replace(/(SALESMANUAL-[0-9]+)/g, (_, issue) => {
           issues.push(issue)
-          return `[#${issue}](https://jungfrau.atlassian.net/browse/${issue})`
+          return `[${issue}](https://jungfrau.atlassian.net/browse/${issue})`
         })
       }
 
@@ -77,8 +77,8 @@ function getWriterOpts () {
 
         commit.subject = `${issueMatches.map(issue => {
           issues.push(issue)
-          return `[#${issue}](https://jungfrau.atlassian.net/browse/${issue})`;
-        }).join(' ')} ${commit.subject}`
+          return `${commit.subject} ([${issue}](https://jungfrau.atlassian.net/browse/${issue})`;
+        }).join(', ')})`
       }
 
       // remove references that already appear in the subject
