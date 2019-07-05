@@ -66,25 +66,26 @@ function getWriterOpts () {
       }
 
       if (typeof commit.subject === `string`) {
-        commit.subject = commit.subject.replace(/(SALESMANUAL-[0-9]+)/g, (_, issue) => {
+        commit.subject = commit.subject.replace(/(#?(SALESMANUAL-[0-9]+))/gi, (_, __, issue) => {
           issues.push(issue)
           return `[${issue}](https://jungfrau.atlassian.net/browse/${issue})`
         })
       }
 
+	  // include body references in the subject
       if (typeof commit.body === `string`) {
         const issueMatches = commit.body.match(/(SALESMANUAL-[0-9]+)/gi);
 
         commit.subject = `${issueMatches.map(issue => {
           issues.push(issue)
-          return `${commit.subject} ([${issue}](https://jungfrau.atlassian.net/browse/${issue})`;
-        }).join(', ')})`
+          return `${commit.subject}, [${issue}](https://jungfrau.atlassian.net/browse/${issue})`;
+        }).join(', ')}`
       }
-
-      // remove references that already appear in the subject
+      
+      // include all remaining references in the subject
       commit.references = commit.references.filter(reference => {
         if (issues.indexOf(reference.issue) === -1) {
-          return true
+			commit.subject = `${commit.subject} ([${reference.issue}](https://jungfrau.atlassian.net/browse/${reference.issue})`;
         }
 
         return false
