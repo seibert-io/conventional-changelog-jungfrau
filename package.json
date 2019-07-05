@@ -1,5 +1,5 @@
 {
-  "name": "conventional-changelog-jungfrau",
+  "name": "@seibert-io/conventional-changelog-jungfrau",
   "version": "5.0.3",
   "description": "conventional-changelog jungfrau preset",
   "main": "index.js",
