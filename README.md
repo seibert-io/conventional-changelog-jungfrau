@@ -1,6 +1,35 @@
 # [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
-> [conventional-changelog](https://github.com/ajoslin/conventional-changelog) jungfrau preset
+> [conventional-changelog](https://github.com/ajoslin/conventional-changelog) heyday preset
+
+## Usage
+
+### Integration in package.json of package versioned:
+```
+{
+    "bugs": {
+        "url": "https://jungfrau.atlassian.net/projects/SALESMANUAL",
+        "issueBaseUrl": "https://jungfrau.atlassian.net/browse/",
+        "issuePattern": "SALESMANUAL-[0-9]+"
+    }
+}
+```
+
+### Configuration in .releaserc
+
+```
+{
+    "plugins": [
+        [
+            "@semantic-release/release-notes-generator",
+            {
+                "config": "@seibert-io/conventional-changelog-heyday",
+                "linkReferences": true
+            }
+        ]
+    ]
+}
+```
 
 Based on [conventional-changelog](https://github.com/ajoslin/conventional-changelog) [angular](https://github.com/angular/angular) preset
 

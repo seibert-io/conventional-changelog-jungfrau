@@ -1,18 +1,18 @@
 {
-  "name": "@seibert-io/conventional-changelog-jungfrau",
-  "version": "5.0.3",
-  "description": "conventional-changelog jungfrau preset",
+  "name": "@seibert-io/conventional-changelog-heyday",
+  "version": "1.0.0",
+  "description": "conventional-changelog heyday preset",
   "main": "index.js",
   "scripts": {
     "test-windows": "mocha --timeout 30000"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/conventional-changelog/conventional-changelog.git"
+    "url": "https://github.com/seibert-io/conventional-changelog-heyday.git"
   },
   "keywords": [
     "conventional-changelog",
-    "jungfrau",
+    "heyday",
     "preset"
   ],
   "files": [
@@ -23,7 +23,7 @@
     "writer-opts.js",
     "templates"
   ],
-  "author": "Steve Mao",
+  "author": "David Seibert",
   "engines": {
     "node": ">=6.9.0"
   },
