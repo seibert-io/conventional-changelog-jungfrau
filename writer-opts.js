@@ -78,7 +78,7 @@ function getWriterOpts() {
 				if (typeof commit.body === `string`) {
 					const issueMatches = commit.body.match(issueRegex);
 
-					commit.subject = `${commit.subject}, ${issueMatches
+					commit.subject = `${commit.subject} ${issueMatches
 						.map(issue => {
 							issues.push(issue);
 							return `[${issue}](${context.packageData.bugs.issueBaseUrl}${issue})`;

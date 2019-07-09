@@ -1,6 +1,6 @@
 {
   "name": "@seibert-io/conventional-changelog-heyday",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "conventional-changelog heyday preset",
   "main": "index.js",
   "scripts": {
