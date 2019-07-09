@@ -78,10 +78,10 @@ function getWriterOpts() {
 				if (typeof commit.body === `string`) {
 					const issueMatches = commit.body.match(issueRegex);
 
-					commit.subject = `${issueMatches
+					commit.subject = `${commit.subject}, ${issueMatches
 						.map(issue => {
 							issues.push(issue);
-							return `${commit.subject}, [${issue}](${context.packageData.bugs.issueBaseUrl}${issue})`;
+							return `[${issue}](${context.packageData.bugs.issueBaseUrl}${issue})`;
 						})
 						.join(' ')}`;
 				}
@@ -89,7 +89,7 @@ function getWriterOpts() {
 				// include all remaining references in the subject
 				commit.references = commit.references.filter(reference => {
 					if (issues.indexOf(reference.issue) === -1) {
-						commit.subject = `${commit.subject} ([${reference.issue}](${context.packageData.bugs.issueBaseUrl}${reference.issue})`;
+						commit.subject = `${commit.subject} [${reference.issue}](${context.packageData.bugs.issueBaseUrl}${reference.issue})`;
 					}
 
 					return false;
