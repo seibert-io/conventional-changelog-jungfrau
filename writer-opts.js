@@ -77,13 +77,14 @@ function getWriterOpts() {
 				// include body references in the subject
 				if (typeof commit.body === `string`) {
 					const issueMatches = commit.body.match(issueRegex);
-
-					commit.subject = `${commit.subject} ${issueMatches
-						.map(issue => {
-							issues.push(issue);
-							return `[${issue}](${context.packageData.bugs.issueBaseUrl}${issue})`;
-						})
-						.join(' ')}`;
+					if (issueMatches) {
+						commit.subject = `${commit.subject} ${issueMatches
+							.map(issue => {
+								issues.push(issue);
+								return `[${issue}](${context.packageData.bugs.issueBaseUrl}${issue})`;
+							})
+							.join(' ')}`;
+					}
 				}
 
 				// include all remaining references in the subject
