@@ -64,7 +64,7 @@ function getWriterOpts() {
 				commit.hash = commit.hash.substring(0, 7);
 			}
 			
-			if (context.packageData && context.packageData.bugs.issueBaseUrl && context.packageData.bugs.issuePattern) {
+			if (context.packageData && context.packageData.bugs && context.packageData.bugs.issueBaseUrl && context.packageData.bugs.issuePattern) {
 				const issueRegex = new RegExp(`(${context.packageData.bugs.issuePattern})`, 'gi');
 
 				if (typeof commit.subject === `string`) {
