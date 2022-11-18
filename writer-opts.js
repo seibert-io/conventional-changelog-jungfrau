@@ -81,7 +81,7 @@ function getWriterOpts() {
 						if (typeof commit.subject === `string`) {
 							commit.subject = commit.subject.replace(issueRegex, (_, issue) => {
 								issues.push(issue);
-								return `[${issue}](${issue.issueBaseUrl}${issue})`;
+								return `[${issue}](${issueProject.issueBaseUrl}${issue})`;
 							});
 						}
 
@@ -92,7 +92,7 @@ function getWriterOpts() {
 								commit.subject = `${commit.subject} ${issueMatches
 									.map(issue => {
 										issues.push(issue);
-										return `[${issue}](${issue.issueBaseUrl}${issue})`;
+										return `[${issue}](${issueProject.issueBaseUrl}${issue})`;
 									})
 									.join(' ')}`;
 							}
