@@ -7,11 +7,13 @@
 ### Integration in package.json of package versioned:
 ```
 {
-    "bugs": {
-        "url": "https://jungfrau.atlassian.net/projects/SALESMANUAL",
-        "issueBaseUrl": "https://jungfrau.atlassian.net/browse/",
-        "issuePattern": "SALESMANUAL-[0-9]+"
-    }
+    "issues": [
+        {
+            "url": "https://jungfrau.atlassian.net/projects/SALESMANUAL",
+            "issueBaseUrl": "https://jungfrau.atlassian.net/browse/",
+            "issuePattern": "SALESMANUAL-[0-9]+"
+        }
+    ]
 }
 ```
 

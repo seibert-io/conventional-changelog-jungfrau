@@ -63,37 +63,50 @@ function getWriterOpts() {
 			if (typeof commit.hash === `string`) {
 				commit.hash = commit.hash.substring(0, 7);
 			}
-			
-			if (context.packageData && context.packageData.bugs && context.packageData.bugs.issueBaseUrl && context.packageData.bugs.issuePattern) {
-				const issueRegex = new RegExp(`(${context.packageData.bugs.issuePattern})`, 'gi');
 
-				if (typeof commit.subject === `string`) {
-					commit.subject = commit.subject.replace(issueRegex, (_, issue) => {
-						issues.push(issue);
-						return `[${issue}](${context.packageData.bugs.issueBaseUrl}${issue})`;
-					});
+			if (context.packageData) {
+				// bugs = backwards compatibility
+				let issueProjects = context.packageData.issues ?? context.packageData.bugs;
+
+				if (issueProjects && !Array.isArray(issueProjects)) {
+					issueProjects = [issueProjects];
+				} else if (!issueProjects) {
+					issueProjects = [];
 				}
 
-				// include body references in the subject
-				if (typeof commit.body === `string`) {
-					const issueMatches = commit.body.match(issueRegex);
-					if (issueMatches) {
-						commit.subject = `${commit.subject} ${issueMatches
-							.map(issue => {
+				issueProjects.forEach(issueProject => {
+					if (issueProject.issueBaseUrl && issueProject.issuePattern) {
+						const issueRegex = new RegExp(`(${issueProject.issuePattern})`, 'gi');
+
+						if (typeof commit.subject === `string`) {
+							commit.subject = commit.subject.replace(issueRegex, (_, issue) => {
 								issues.push(issue);
-								return `[${issue}](${context.packageData.bugs.issueBaseUrl}${issue})`;
-							})
-							.join(' ')}`;
-					}
-				}
+								return `[${issue}](${issue.issueBaseUrl}${issue})`;
+							});
+						}
 
-				// include all remaining references in the subject
-				commit.references = commit.references.filter(reference => {
-					if (issues.indexOf(reference.issue) === -1) {
-						commit.subject = `${commit.subject} [${reference.issue}](${context.packageData.bugs.issueBaseUrl}${reference.issue})`;
-					}
+						// include body references in the subject
+						if (typeof commit.body === `string`) {
+							const issueMatches = commit.body.match(issueRegex);
+							if (issueMatches) {
+								commit.subject = `${commit.subject} ${issueMatches
+									.map(issue => {
+										issues.push(issue);
+										return `[${issue}](${issue.issueBaseUrl}${issue})`;
+									})
+									.join(' ')}`;
+							}
+						}
 
-					return false;
+						// include all remaining references in the subject
+						commit.references = commit.references.filter(reference => {
+							if (issues.indexOf(reference.issue) === -1) {
+								commit.subject = `${commit.subject} [${reference.issue}](${issueProject.issueBaseUrl}${reference.issue})`;
+							}
+
+							return false;
+						});
+					}
 				});
 			}
 
